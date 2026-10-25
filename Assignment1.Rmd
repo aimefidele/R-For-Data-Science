@@ -1,3 +1,4 @@
+
 ---
 title: "HW1: Importing Data into R"
 author: "Aime"
@@ -5,61 +6,93 @@ date: "2026-10-22"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(haven)   # reads SPSS, Stata and SAS files
-library(DBI)     # connects R to databases
+# 1. Importing Data from Statistical Packages
 
-# Example files for the demonstration
+The `haven` package imports data from SPSS, Stata, and SAS files.
+
+```{r setup, message=FALSE, warning=FALSE}
+library(haven)
+
 dir.create("data", showWarnings = FALSE)
-example <- data.frame(id = 1:5, age = c(25, 30, 35, 40, 45), score = c(70, 85, 90, 60, 75))
-write_sav(example, "data/survey.sav")
-write_dta(example, "data/survey.dta")
-write_xpt(example, "data/survey.xpt")
+
+# Create sample data for testing
+survey <- data.frame(
+  id = 1:5,
+  age = c(25, 30, 35, 40, 45),
+  score = c(70, 85, 90, 60, 75)
+)
+
+# Save data in different formats
+write_sav(survey, "data/survey.sav")
+write_dta(survey, "data/survey.dta")
+write_xpt(survey, "data/survey.xpt")
 ```
 
-# Introduction
-
-Data is often saved by statistical software or stored in databases, not only in CSV files. This homework shows how to import both into R.
-
-# Part 1: Statistical Packages
-
-- **SPSS** (IBM): popular in social sciences and surveys; menu-driven and easy for beginners. Files: `.sav`
-- **Stata**: widely used in economics and public health (e.g. DHS surveys); command-based. Files: `.dta`
-- **SAS**: used in large organizations such as banks, hospitals and pharma; strong for big datasets. Files: `.sas7bdat`, `.xpt`
-
-The `haven` package reads all three, one function each.
+## Import the files
 
 ```{r}
-spss_data  <- read_sav("data/survey.sav")   # import SPSS file
-stata_data <- read_dta("data/survey.dta")   # import Stata file
-sas_data   <- read_xpt("data/survey.xpt")   # import SAS file
+spss_data <- read_sav("data/survey.sav")
+stata_data <- read_dta("data/survey.dta")
+sas_data <- read_xpt("data/survey.xpt")
 
-head(spss_data)   # show first rows to confirm the import worked
+head(spss_data)
+head(stata_data)
+head(sas_data)
 ```
 
-All three files loaded with 5 rows and 3 columns.
-
-# Part 2: Database
-
-A **DBMS** (Database Management System) stores data in tables, which are queried with SQL. Examples are MySQL, PostgreSQL and SQLite. The `DBI` package connects R to any of them.
+## Check the imported data
 
 ```{r}
-con <- dbConnect(RSQLite::SQLite(), "data/company.sqlite")   # connect to the database
-
-dbWriteTable(con, "employees", data.frame(                   # create an example table
-  name   = c("Aime", "Fidele", "Iradukunda", "Arstide"),
-  dept   = c("IT", "HR", "IT", "Finance"),
-  salary = c(1200, 800, 1500, 1000)), overwrite = TRUE)
-
-dbReadTable(con, "employees")                                 # import the whole table
-dbGetQuery(con, "SELECT * FROM employees WHERE dept = 'IT'")  # import only IT staff with SQL
-
-dbDisconnect(con)                                             # close the connection
+dim(spss_data)
+dim(stata_data)
+dim(sas_data)
 ```
 
-With SQL, the database does the filtering and R receives only what is needed. This is important for big data.
+Each dataset should contain 5 rows and 3 columns.
 
-# Conclusion
+# 2. Importing Data from a Database
 
-`haven` imports SPSS, Stata and SAS files with a single function each. `DBI` connects R to databases and imports data using SQL.
+The `DBI` package provides an interface for connecting R to databases. The `RSQLite` package allows R to work with SQLite databases.
+
+```{r database-setup, message=FALSE, warning=FALSE}
+library(DBI)
+library(RSQLite)
+
+# Connect to an SQLite database
+con <- dbConnect(
+  SQLite(),
+  "data/company.sqlite"
+)
+
+# Create a sample table
+employees <- data.frame(
+  name = c("Aime", "Fidele", "Iradukunda", "Arstide"),
+  dept = c("IT", "HR", "IT", "Finance"),
+  salary = c(1200, 800, 1500, 1000)
+)
+
+dbWriteTable(con, "employees", employees, overwrite = TRUE)
+```
+
+## Read data from the database
+
+```{r}
+# Import the complete table
+employee_data <- dbReadTable(con, "employees")
+print(employee_data)
+
+# Import selected records using SQL
+it_employees <- dbGetQuery(
+  con,
+  "SELECT * FROM employees WHERE dept = 'IT'"
+)
+
+print(it_employees)
+
+# Close the connection
+dbDisconnect(con)
+```
+
+# 3. Conclusion
+
+The `haven` package imports SPSS, Stata, and SAS files. The `DBI` and `RSQLite` packages connect R to SQLite databases and retrieve data using R functions and SQL queries.
