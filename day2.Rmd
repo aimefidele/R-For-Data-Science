@@ -1,0 +1,16 @@
+# 1. View all available built-in datasets
+data() 
+data(package='datasets')
+
+# 2. Preview the first 6 rows of a dataset
+head(airquality)
+
+# 3. Extract the 'Wind' column and save it as 'var1'
+# (Remember: '$' means "look inside the dataset")
+var1 <- airquality$Wind
+
+# 4. Print all values of var1
+var1
+
+# 5. Preview the first 6 values of var1
+head(var1)
