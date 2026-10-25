@@ -1,0 +1,13 @@
+# Enter your birthdate
+birthdate <- as.POSIXct("1997-06-06 14:00:00",
+                        tz = "Africa/Kigali")
+
+# Get the current date and time
+now <- Sys.time()
+
+# Calculate the difference
+time_lived <- difftime(now, birthdate, units = "hours")
+
+# Display total hours and days
+print(time_lived)
+print(as.numeric(time_lived) / 24)
