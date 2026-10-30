@@ -1,0 +1,7 @@
+---
+title: "work1"
+author: "Aime"
+date: "2026-10-30"
+output: html_document
+---
+summary(cars)
