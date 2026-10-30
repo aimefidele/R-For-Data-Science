@@ -1,0 +1,58 @@
+---
+title: "Data management with dplyr"
+author: "Aime"
+date: "2026-10-30"
+output: html_document
+---
+
+```{r}
+# install.packages(c("dplyr", "nycflights13"))   # run once
+library(dplyr)
+library(nycflights13)
+dim(flights)          # 336776 rows, 19 columns
+```
+
+## 1. select(): choose columns
+
+```{r}
+select(flights, year, month, day, carrier, dep_delay)
+```
+
+## 2. filter(): choose rows
+
+```{r}
+filter(flights, month == 1, day == 1)    # flights on 1 January: 842
+filter(flights, dest == "ATL")           # flights to Atlanta: 17215
+```
+
+## 3. arrange(): sort
+
+```{r}
+arrange(flights, desc(dep_delay))        # most delayed first: 1301 minutes!
+```
+
+## 4. rename(): change a column name
+
+```{r}
+rename(flights, airline = carrier)
+```
+
+## 5. mutate(): create a new column
+
+```{r}
+mutate(flights, speed = distance / air_time * 60)   # speed in miles per hour
+```
+```{r}
+
+## 6. group_by
+
+d <- data.frame(name  = c("Ana", "Ben", "Sam", "Eva", "Tom", "Joy"),
+                class = c("A", "A", "A", "B", "B", "B"),
+                score = c(70, 80, 85, 60, 90, 75))
+
+piles <- group_by(d, class)          # make piles by class
+summarize(piles, avg = mean(score))  # average of each pile
+```
+```{r}
+d %>% group_by(class) %>% summarize(avg = mean(score)) #take d, then make piles by class, then average each pile
+```

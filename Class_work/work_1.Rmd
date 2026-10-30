@@ -4,4 +4,117 @@ author: "Aime"
 date: "2026-10-30"
 output: html_document
 ---
-summary(cars)
+
+## 1. Vectors
+
+```{r}
+age <- c(20, 35, 32, 29)
+summary(age)
+mean(age)
+gender <- c("M", "F", "F", "M")
+class(gender)
+```
+
+## 2. Matrix
+
+```{r}
+x <- matrix(1:6, nrow = 2, ncol = 3)
+y <- matrix(1:6, nrow = 3, ncol = 2)
+x %*% y
+```
+
+## 3. List and factor
+
+```{r}
+my_list <- list(1, "a", TRUE)
+my_list
+answer <- factor(c("yes", "yes", "no", "yes", "no"))
+table(answer)
+```
+
+## 4. Missing values
+
+```{r}
+x <- c(1, 2, NA, 10, 3)
+is.na(x)
+mean(x, na.rm = TRUE)
+```
+
+## 5. Data frame
+
+```{r}
+studentID  <- c(1, 2, 3, 4, 5)
+gender     <- c("M", "F", "M", "M", "F")
+math_score <- c(12, 17, 10, 9, NA)
+it_score   <- c(13, 18, 11, 10, 19)
+scoredata  <- data.frame(studentID, gender, math_score, it_score)
+scoredata
+```
+
+## 6. Built-in data and summary
+
+```{r}
+data("women")
+str(women)
+summary(women)
+apply(women, 2, sd)
+```
+
+## 7. Mean by group
+
+```{r}
+by(iris$Petal.Length, iris$Species, mean)
+boxplot(Sepal.Length ~ Species, data = iris)
+```
+
+## 8. Two categorical variables
+
+```{r}
+ucba  <- data.frame(UCBAdmissions)
+cross <- xtabs(Freq ~ Gender + Admit, data = ucba)
+cross
+prop.table(cross, 1)
+```
+
+## 9. Graphs and regression
+
+```{r}
+plot(weight ~ height, data = women)
+abline(lm(weight ~ height, data = women))
+cor(women$height, women$weight)
+model <- lm(weight ~ height, data = women)
+summary(model)
+hist(women$weight)
+```
+
+## 10. New variable (BMI)
+
+```{r}
+women$BMI <- round((women$weight * 0.4536) / (women$height * 0.0254)^2, 1)
+head(women)
+```
+
+## 11. Dates
+
+```{r}
+today <- Sys.Date()
+format(today, "%A %d %B %Y")
+dob <- as.Date("1997-01-01")
+difftime(today, dob, units = "days")
+```
+
+## 12. Missing values, sorting and subsetting
+
+```{r}
+manager <- c(1, 2, 3, 4, 5)
+gender  <- c("M", "F", "F", "M", "F")
+age     <- c(32, 45, 25, 39, 99)
+q1      <- c(5, 3, 3, 3, 2)
+q2      <- c(4, 5, 5, NA, 2)
+leadership <- data.frame(manager, gender, age, q1, q2)
+
+leadership$age[leadership$age == 99] <- NA
+na.omit(leadership)
+leadership[order(leadership$age), ]
+subset(leadership, gender == "M", select = c(manager, age))
+```
