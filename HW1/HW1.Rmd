@@ -1,0 +1,75 @@
+---
+title: "HW1: Import data from statistical packages and database management systems"
+author: "Aime"
+date: "2026-10-30"
+output: github_document
+---
+
+## Introduction
+
+Data comes in many formats. In this homework I import data from a text file,
+Excel, SPSS, Stata, SAS and a database, using the right package for each.
+
+## Packages
+
+| Package | Used for |
+|----|----|
+| readxl | Excel files |
+| haven | SPSS, Stata and SAS files |
+| DBI + RSQLite | Databases |
+
+```{r}
+library(readxl)
+library(haven)
+library(DBI)
+```
+
+## 1. Text file (CSV)
+
+```{r}
+csv_data <- read.csv("data/iris.csv")
+head(csv_data)
+```
+
+## 2. Excel
+
+```{r}
+excel_data <- read_excel("data/mtcars.xlsx")
+head(excel_data)
+```
+
+## 3. SPSS
+
+```{r}
+spss_data <- read_sav("data/cars.sav")
+head(spss_data)
+```
+
+## 4. Stata
+
+```{r}
+stata_data <- read_dta("data/mtcars.dta")
+head(stata_data)
+```
+
+## 5. SAS
+
+```{r}
+sas_data <- read_xpt("data/cars.xpt")
+head(sas_data)
+```
+
+## 6. Database (SQLite)
+
+```{r}
+con <- dbConnect(RSQLite::SQLite(), "data/school.sqlite")
+dbListTables(con)
+db_data <- dbGetQuery(con, "SELECT * FROM students")
+db_data
+dbDisconnect(con)
+```
+
+## Conclusion
+
+Base R reads CSV files, `readxl` reads Excel, `haven` reads SPSS, Stata and SAS,
+and `DBI` connects R to databases so data can be imported with SQL.
