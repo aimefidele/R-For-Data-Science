@@ -2,8 +2,10 @@
 
 - **Student:** Aime Fidele Iradukunda
 - **Registration number:** 20252MBI010
-- **Course:** R for Data Science (MSDA9113), MSc Big Data Analytics, AUCA
+- **Programme:** MSc in Big Data Analytics
+- **Course:** R for Data Science (MSDA9113)
 - **Instructor:** Dr. Pacifique Nizeyimana
+- **University:** Adventist University of Central Africa (AUCA)
 
 ## What I did
 
