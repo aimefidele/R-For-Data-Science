@@ -1,12 +1,11 @@
 # HW1 – Importing Data into R
 
-**Student:** Aime Fidele Iradukunda
-**Registration number:** 20252MBI010
-
-**Programme:** MSc in Big Data Analytics  
-**Course:** R for Data Science (MSDA9113)  
-**Instructor:** Dr. Pacifique Nizeyimana 
-**University:** Adventist University of Central Africa (AUCA)
+- **Student:** Aime Fidele Iradukunda
+- **Registration number:** 20252MBI010
+- **Programme:** MSc in Big Data Analytics
+- **Course:** R for Data Science (MSDA9113)
+- **Instructor:** Dr. Pacifique Nizeyimana
+- **University:** Adventist University of Central Africa (AUCA)
 
 ## Assignment
 
