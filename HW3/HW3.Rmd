@@ -1,0 +1,51 @@
+---
+title: "HW3: Functions and the apply family"
+author: "Aime Fidele Iradukunda (20252MBI010)"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+## Q1. Summary statistics
+
+```{r}
+summary_stats <- function(values) {
+  c(n = sum(!is.na(values)), mean = mean(values, na.rm = TRUE),
+    median = median(values, na.rm = TRUE), sd = sd(values, na.rm = TRUE),
+    min = min(values, na.rm = TRUE), max = max(values, na.rm = TRUE))
+}
+
+summary_stats(mtcars$mpg)
+```
+
+## Q2. Two sample t test
+
+```{r}
+t_test_two <- function(group1, group2) {
+  se1 <- var(group1) / length(group1)
+  se2 <- var(group2) / length(group2)
+  t_stat <- (mean(group1) - mean(group2)) / sqrt(se1 + se2)
+  df <- (se1 + se2)^2 / (se1^2/(length(group1)-1) + se2^2/(length(group2)-1))
+  p_val <- 2 * pt(-abs(t_stat), df)
+  list(t = t_stat, df = df, p_value = p_val)
+}
+
+manual_mpg <- mtcars$mpg[mtcars$am == 1]
+auto_mpg   <- mtcars$mpg[mtcars$am == 0]
+
+t_test_two(manual_mpg, auto_mpg)
+t.test(manual_mpg, auto_mpg)
+```
+
+## Q3. The apply family
+
+```{r}
+lapply(mtcars[, c("mpg", "hp")], mean)
+sapply(mtcars[, c("mpg", "hp")], mean)
+tapply(mtcars$mpg, mtcars$cyl, mean)
+mapply(function(a, b) a + b, 1:3, 4:6)
+apply(mtcars[, 1:3], 2, max)
+apply(mtcars[1:5, 1:3], 1, sum)
+```

@@ -1,0 +1,91 @@
+---
+  title: "Day4"
+author: "Aime Fidele Iradukunda (20252MBI010)"
+output: html_document
+---
+  
+  ```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  comment = "#>",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+# Day 4: Control Structures
+
+## If statement
+
+```{r}
+# random number between 0 and 100
+x <- runif(1, 0, 100)
+x
+
+# random numbers
+y <- rnorm(100)
+hist(y)
+
+# if / else if / else
+if (x > 3) {
+  print("X is greater than 3")
+} else if (x < 3) {
+  print("X is less than 3")
+} else {
+  print("X is equal to 3")
+}
+```
+
+## If statement with a number between 0 and 10
+
+```{r}
+# one random number between 0 and 10
+x <- runif(1, 0, 10)
+x
+
+if (x > 3) {
+  print("X is greater than three")
+} else {
+  print("X is less or equal to three")
+}
+```
+
+## Short if (assign y)
+
+```{r}
+# y gets 10 if x > 3, otherwise 0
+y <- if (x > 3) {
+  10
+} else {
+  0
+}
+y
+```
+
+## For loop
+
+```{r}
+# loop over a list of words
+items <- c("a", "b", "c", "d")
+
+for (item in items) {
+  print(item)
+}
+
+# loop over numbers 1 to 5
+for (i in 1:5) {
+  print(i)
+}
+```
+
+## While loop
+
+```{r}
+# count down from 10 to 1
+count <- 10
+while (count >= 1) {
+  print(count)
+  count <- count - 1
+}
+```
