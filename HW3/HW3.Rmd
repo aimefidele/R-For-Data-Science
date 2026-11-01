@@ -41,49 +41,26 @@ t.test(manual_mpg, auto_mpg)
 
 ## Q3. The apply family
 
-The apply family runs one function over many pieces of data, so you don't need a loop. Peng's book explains these in the chapter on loop functions.
-
-### lapply
-
-`lapply` runs a function on each item of a list (or each column of a data frame). The answer is always a list.
-
 ```{r}
+# lapply: runs mean on each column, gives a list
 lapply(mtcars[, c("mpg", "hp")], mean)
-```
 
-### sapply
-
-`sapply` does the same as `lapply`, but tries to make the answer simpler, like a vector. It is easier to read.
-
-```{r}
+# sapply: same as lapply, but gives a simple vector
 sapply(mtcars[, c("mpg", "hp")], mean)
-```
 
-### tapply
-
-`tapply` splits the values into groups, then runs the function on each group. Here the groups are the number of cylinders.
-
-```{r}
+# tapply: splits mpg into groups by cyl, then finds the mean of each group
 tapply(mtcars$mpg, mtcars$cyl, mean)
-```
 
-### mapply
-
-`mapply` takes two or more vectors and runs the function on the first items together, then the second items together, and so on. It works like a loop over several inputs.
-
-```{r}
+# mapply: adds the first pair, then the second pair, then the third pair
 mapply(function(a, b) a + b, 1:3, 4:6)
-```
 
-### apply
+# apply: 2 = columns, so max of each column
+apply(mtcars[, 1:3], 2, max)
 
-`apply` runs a function on each row or column of a matrix or data frame. `2` means columns, `1` means rows.
-
-```{r}
-apply(mtcars[, 1:3], 2, max)      # max of each column
-apply(mtcars[1:5, 1:3], 1, sum)   # sum of each row
+# apply: 1 = rows, so sum of each row
+apply(mtcars[1:5, 1:3], 1, sum)
 ```
 
 ## References
 
-- Peng, R. D. (2016). *R Programming for Data Science*. Leanpub. Chapter: Loop Functions. Available at https://bookdown.org/rdpeng/rprogdatascience/
+- Peng, R. D. (2016). *R Programming for Data Science*. Leanpub. Chapter: Loop Functions. https://bookdown.org/rdpeng/rprogdatascience/
