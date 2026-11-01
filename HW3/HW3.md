@@ -63,6 +63,7 @@ t.test(manual_mpg, auto_mpg)
 ## Q3. The apply family
 
 ``` r
+# lapply: runs mean on each column, gives a list
 lapply(mtcars[, c("mpg", "hp")], mean)
 ```
 
@@ -73,6 +74,7 @@ lapply(mtcars[, c("mpg", "hp")], mean)
     ## [1] 146.6875
 
 ``` r
+# sapply: same as lapply, but gives a simple vector
 sapply(mtcars[, c("mpg", "hp")], mean)
 ```
 
@@ -80,6 +82,7 @@ sapply(mtcars[, c("mpg", "hp")], mean)
     ##  20.09062 146.68750
 
 ``` r
+# tapply: splits mpg into groups by cyl, then finds the mean of each group
 tapply(mtcars$mpg, mtcars$cyl, mean)
 ```
 
@@ -87,12 +90,14 @@ tapply(mtcars$mpg, mtcars$cyl, mean)
     ## 26.66364 19.74286 15.10000
 
 ``` r
+# mapply: adds the first pair, then the second pair, then the third pair
 mapply(function(a, b) a + b, 1:3, 4:6)
 ```
 
     ## [1] 5 7 9
 
 ``` r
+# apply: 2 = columns, so max of each column
 apply(mtcars[, 1:3], 2, max)
 ```
 
@@ -100,6 +105,7 @@ apply(mtcars[, 1:3], 2, max)
     ##  33.9   8.0 472.0
 
 ``` r
+# apply: 1 = rows, so sum of each row
 apply(mtcars[1:5, 1:3], 1, sum)
 ```
 
@@ -107,3 +113,9 @@ apply(mtcars[1:5, 1:3], 1, sum)
     ##             187.0             187.0             134.8             285.4 
     ## Hornet Sportabout 
     ##             386.7
+
+## References
+
+- Peng, R. D. (2016). *R Programming for Data Science*. Leanpub.
+  Chapter: Loop Functions.
+  <https://bookdown.org/rdpeng/rprogdatascience/>
