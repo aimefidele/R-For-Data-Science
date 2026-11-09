@@ -1,0 +1,39 @@
+---
+title: "debugging"
+author: "Aime Fidele Iradukunda"
+date: "2026-11-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+$log(-5)$
+
+```{r}
+Number_sign <- function(x)
+{
+  if(x>0)
+    print(paste(x,"is greater than zero"))
+  else
+    print(paste(x,"is less than zero"))
+}
+Number_sign(-2)
+
+```
+```{r}
+Number_sign2 <- function(x)
+{
+  if(is.na(x))
+    print(paste(x,"is a missing value"))
+  else if (x > 0)
+    print(paste(x,"is greater than zero"))
+  else if (x < 0)
+    print(paste(x,"is less than zero"))
+}
+Number_sign3 <- Vectorize(Number_sign2)
+Number_sign3(c(1,5,-5))
+```
+
+
