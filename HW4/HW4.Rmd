@@ -2,7 +2,7 @@
 title: "Multiple Linear Regression HW"
 author: "Aime Fidele Iradukunda & REG: 20252MBI010"
 date: "2026-11-09"
-output: html_document
+output: github_document
 ---
 
 # Introduction
